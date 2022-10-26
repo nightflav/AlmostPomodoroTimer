@@ -1,20 +1,12 @@
 package com.nightflav.itspomodorotime
 
-import android.content.Intent
-import android.nfc.Tag
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.allViews
-import androidx.core.view.forEach
 import com.nightflav.itspomodorotime.databinding.ActivityMainBinding
-import com.nightflav.itspomodorotime.model.Settings
-import com.nightflav.itspomodorotime.model.getParsedTime
-import com.nightflav.itspomodorotime.model.parseStringToTimeInMills
+import com.nightflav.itspomodorotime.model.*
 import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
@@ -180,7 +172,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun pauseTimer() {
         if (!isTimerPaused) {
-            timeLeftAfterPause = parseStringToTimeInMills(binding.timerView.text.toString())
+            timeLeftAfterPause = parseStringToTimeInMills("${binding.timerView.text}:${binding.timerViewSeconds.text}")
         } else {
             timer.cancel()
             setupTimer()
@@ -218,7 +210,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun updateTimer(timeM: Long) {
-        binding.timerView.text = getParsedTime(timeM / 1000)
+        binding.timerView.text = getParsedTimeMinutes(timeM / 1000)
+        binding.timerViewSeconds.text = getParsedTimerSeconds(timeM / 1000)
     }
 
     private companion object {

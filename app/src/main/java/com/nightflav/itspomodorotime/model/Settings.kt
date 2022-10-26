@@ -14,6 +14,14 @@ data class Settings(
     }
 }
 
+fun getParsedTimeMinutes(time: Long): String {
+    return (time / 60).toString()
+}
+
+fun getParsedTimerSeconds(time: Long): String {
+    return if (time % 60 < 10) "0${time % 60}" else (time % 60).toString()
+}
+
 fun getParsedTime(time: Long): String {
     val minutes = (time / 60).toString()
     val seconds = if (time % 60 < 10) "0${time % 60}" else (time % 60).toString()
